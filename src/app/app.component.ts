@@ -6,5 +6,55 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'team-gen';
+  title = 'Team Generator'
+  newMember: string = ''
+  teamMembers: string[] = []
+  teams: string[][] = []
+  teamNo: number | '' = ''
+  error: string = ''
+
+  addMember(): void {
+    if(!this.newMember){
+      this.error = 'You must specify name'
+      setTimeout(()=>this.error='',4000)
+      return
+    } 
+      this.teamMembers.push(this.newMember)
+      this.newMember = ''
+  }
+  onInput(member: string) {
+    this.newMember = member
+  }
+  updateNo(no: string) {
+    this.teamNo = +no
+  }
+  generateTeams(){
+    if(!this.teamNo || this.teamNo <= 0){
+      this.error = 'Number of team must be a positive number'
+      setTimeout(()=>this.error='', 3500)
+      return
+    }
+    if(this.teamMembers.length < this.teamNo){
+      this.error = 'Not enough players'
+      setTimeout(()=>this.error='',3500)
+      return
+    }
+    let teams: string[][] = []
+    let noOfPlayers = this.teamMembers.length / this.teamNo
+    for(let player in this.teamMembers){
+      let team = Math.floor(Math.random() * this.teamNo)
+      while(teams[team] !== undefined && teams[team].length >= noOfPlayers){
+        team = Math.floor(Math.random() * this.teamNo)
+      }
+      if(teams[team] !== undefined){
+        teams[team].push(player)
+      } 
+      else {
+        teams[team] = [player]
+      }
+    }
+    this.teams = teams
+
+
+  }
 }
