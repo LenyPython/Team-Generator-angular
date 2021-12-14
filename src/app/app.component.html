@@ -1,10 +1,6 @@
-<div class='root'>
-  <div>
-    <h1>{{title}}</h1>
-  </div>
-  <ul>
-    <li *ngFor="let member of teamMembers">{{member}}</li>
-  </ul>
+<div class='generator'>
+  <h1>{{title}}</h1>
+  <app-list [teamMembers]='teamMembers'></app-list>
   <div class='input-container'>
     <input #member type="string" (input)="onInput(member.value)" [value]="newMember" placeholder='Name...' required>
     <button class='btn add' (click)="addMember()">
@@ -20,10 +16,5 @@
   <p *ngIf='error' class='error-box'>
     {{error}}
   </p>
-  <div *ngIf='teams'>
-    <div *ngFor='let team of teams; index as i'>
-      <h1>Team {{i + 1}}</h1>
-      <p *ngFor='let player of teams[i]'>{{player}}</p>
-    </div>
-  </div>
 </div>
+<app-teams [teams]='teams'></app-teams>

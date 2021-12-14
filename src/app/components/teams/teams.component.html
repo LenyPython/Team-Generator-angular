@@ -1,0 +1,6 @@
+<div *ngIf='teams'>
+	<div *ngFor='let team of teams; index as i'>
+		<h1>Team {{i + 1}}</h1>
+		<p *ngFor='let player of teams[i]'>{{player}}</p>
+	</div>
+</div>
