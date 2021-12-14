@@ -42,17 +42,12 @@ export class AppComponent {
     let teams: string[][] = []
     let noOfPlayers = this.teamMembers.length / this.teamNo
     for(let player of this.teamMembers){
-      let team = Math.floor(Math.random() * this.teamNo)
+      let team = Math.floor(Math.random() * (this.teamNo - 1))
       while(teams[team] !== undefined && teams[team].length >= noOfPlayers){
         team++
-        if(team > this.teamNo) team = 0
+        if(team >= this.teamNo) team = 0
       }
-      if(teams[team] !== undefined){
-        teams[team].push(player)
-      } 
-      else {
-        teams[team] = [player]
-      }
+      teams[team] !== undefined ? teams[team].push(player) : teams[team] = [player]
     }
     this.teams = teams
 
